@@ -22,9 +22,7 @@ struct ContentView: View {
         User(firstName: "Ihor", lastName: "Sukhachov"),
         User(firstName: "Andrii", lastName: "Kozlov"),
         User(firstName: "Oleg", lastName: "Shevchenko"),
-    ].sorted {
-        $0.lastName < $1.lastName
-    }
+    ].sorted()
     
     var body: some View {
         VStack {
