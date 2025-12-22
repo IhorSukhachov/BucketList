@@ -7,10 +7,14 @@
 
 import SwiftUI
 
-struct User: Identifiable {
+struct User: Comparable, Identifiable {
     let id = UUID()
     let firstName: String
     let lastName: String
+    
+    static func <(lhs: User, rhs: User) -> Bool {
+        lhs.lastName < rhs.lastName
+    }
 }
 
 struct ContentView: View {
