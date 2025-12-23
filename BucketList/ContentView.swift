@@ -50,11 +50,18 @@ struct ContentView: View {
     
     var body: some View {
         VStack {
-            Map {
-                ForEach(locations) { location in
-                    Marker(location.name, coordinate: location.coordinate)
+            MapReader { proxy in
+                Map {
+                    ForEach(locations) { location in
+                        Marker(location.name, coordinate: location.coordinate)
+                    }
+                }.onTapGesture { position in
+                    if let coordinate = proxy.convert(position, from: .local) {
+                        print(coordinate)
+                    }
                 }
             }
+        
                 }
         .padding()
 ////            if loadingState == .loading {
