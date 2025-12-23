@@ -35,8 +35,8 @@ struct ContentView: View {
     
     var body: some View {
         VStack {
-            Map()
-                .mapStyle(.imagery)
+            Map(interactionModes: [.rotate, .zoom])
+                .mapStyle(.hybrid(elevation: .realistic))
 ////            if loadingState == .loading {
 ////                LoadingView()
 ////            } else if loadingState == .success {
