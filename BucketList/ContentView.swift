@@ -32,7 +32,7 @@ struct ContentView: View {
 //    }
 //    
 //    @State private var loadingState: LoadingState = .loading
-    let position = MapCameraPosition.region(
+    @State private var position = MapCameraPosition.region(
         MKCoordinateRegion(
             center: CLLocationCoordinate2D(latitude: 51.507222, longitude: -0.1278),
             span: MKCoordinateSpan(latitudeDelta: 1, longitudeDelta: 1))
@@ -40,8 +40,18 @@ struct ContentView: View {
     
     var body: some View {
         VStack {
-            Map(initialPosition: position)
+            Map(position: $position)
                 .mapStyle(.hybrid(elevation: .realistic))
+        HStack(spacing: 50) {
+            Button("Paris") {
+                position = MapCameraPosition.region(
+                    MKCoordinateRegion(
+                        center: CLLocationCoordinate2D(latitude: 48.8566, longitude: 2.3522),
+                        span: MKCoordinateSpan(latitudeDelta: 1, longitudeDelta: 1)
+                    )
+                )
+            }
+            }
 ////            if loadingState == .loading {
 ////                LoadingView()
 ////            } else if loadingState == .success {
