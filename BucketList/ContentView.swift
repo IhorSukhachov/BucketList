@@ -51,6 +51,14 @@ struct ContentView: View {
                     )
                 )
             }
+            Button("Tokio") {
+                position = MapCameraPosition.region(
+                    MKCoordinateRegion(
+                        center: CLLocationCoordinate2D(latitude: 35.8566, longitude: 139.3522),
+                        span: MKCoordinateSpan(latitudeDelta: 1, longitudeDelta: 1)
+                    )
+                )
+            }
             }
 ////            if loadingState == .loading {
 ////                LoadingView()
