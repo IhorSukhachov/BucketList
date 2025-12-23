@@ -32,10 +32,15 @@ struct ContentView: View {
 //    }
 //    
 //    @State private var loadingState: LoadingState = .loading
+    let position = MapCameraPosition.region(
+        MKCoordinateRegion(
+            center: CLLocationCoordinate2D(latitude: 51.507222, longitude: -0.1278),
+            span: MKCoordinateSpan(latitudeDelta: 1, longitudeDelta: 1))
+    )
     
     var body: some View {
         VStack {
-            Map(interactionModes: [.rotate, .zoom])
+            Map(initialPosition: position)
                 .mapStyle(.hybrid(elevation: .realistic))
 ////            if loadingState == .loading {
 ////                LoadingView()
