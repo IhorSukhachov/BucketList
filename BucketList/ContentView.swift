@@ -36,6 +36,7 @@ struct ContentView: View {
     var body: some View {
         VStack {
             Map()
+                .mapStyle(.imagery)
 ////            if loadingState == .loading {
 ////                LoadingView()
 ////            } else if loadingState == .success {
