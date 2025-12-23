@@ -25,6 +25,11 @@ import SwiftUI
 //    }
 //}
 
+struct Location: Identifiable {
+    let id: UUID = UUID()
+    let name: String
+    let coordinate: CLLocationCoordinate2D
+}
 
 struct ContentView: View {
 //    enum LoadingState {
@@ -32,37 +37,26 @@ struct ContentView: View {
 //    }
 //    
 //    @State private var loadingState: LoadingState = .loading
-    @State private var position = MapCameraPosition.region(
-        MKCoordinateRegion(
-            center: CLLocationCoordinate2D(latitude: 51.507222, longitude: -0.1278),
-            span: MKCoordinateSpan(latitudeDelta: 1, longitudeDelta: 1))
-    )
+    let locations = [
+        Location(name: "Kyiv", coordinate: CLLocationCoordinate2D(latitude: 45, longitude: 65)),
+        Location(name: "Lviv", coordinate: CLLocationCoordinate2D(latitude: 34, longitude: 54))
+    ]
+    
+//    @State private var position = MapCameraPosition.region(
+//        MKCoordinateRegion(
+//            center: CLLocationCoordinate2D(latitude: 51.507222, longitude: -0.1278),
+//            span: MKCoordinateSpan(latitudeDelta: 1, longitudeDelta: 1))
+//    )
     
     var body: some View {
         VStack {
-            Map(position: $position)
-                .mapStyle(.hybrid(elevation: .realistic))
-                .onMapCameraChange(frequency: .continuous) { context in
-                    print(context.region)
+            Map {
+                ForEach(locations) { location in
+                    Marker(location.name, coordinate: location.coordinate)
                 }
-        HStack(spacing: 50) {
-            Button("Paris") {
-                position = MapCameraPosition.region(
-                    MKCoordinateRegion(
-                        center: CLLocationCoordinate2D(latitude: 48.8566, longitude: 2.3522),
-                        span: MKCoordinateSpan(latitudeDelta: 1, longitudeDelta: 1)
-                    )
-                )
             }
-            Button("Tokio") {
-                position = MapCameraPosition.region(
-                    MKCoordinateRegion(
-                        center: CLLocationCoordinate2D(latitude: 35.8566, longitude: 139.3522),
-                        span: MKCoordinateSpan(latitudeDelta: 1, longitudeDelta: 1)
-                    )
-                )
-            }
-            }
+                }
+        .padding()
 ////            if loadingState == .loading {
 ////                LoadingView()
 ////            } else if loadingState == .success {
@@ -78,9 +72,6 @@ struct ContentView: View {
 //                SuccessView()
 //            case .failed:
 //                FailedView()
-//            }
-        }
-        .padding()
     }
 }
 
