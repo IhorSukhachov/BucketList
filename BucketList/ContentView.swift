@@ -19,7 +19,11 @@ struct ContentView: View {
     )
     
     var body: some View {
-
+        Map(initialPosition: startPosition)
+            .mapStyle(.hybrid)
+            .onTapGesture {
+                <#code#>
+            }
     }
 }
 
