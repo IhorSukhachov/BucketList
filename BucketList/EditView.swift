@@ -8,8 +8,28 @@
 import SwiftUI
 
 struct EditView: View {
+    @Environment(\.dismiss) var dismiss
+    var location: Location
+    
+    @State private var name: String
+    @State private var description: String
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        NavigationStack {
+            Form {
+                Section {
+                    TextField("Place name", text:  $name)
+                    TextField("Description", text: $description)
+                }
+            }
+            .navigationTitle("Place details ")
+            .toolbar {
+                Button("Save") {
+                    dismiss()
+                }
+                
+            }
+        }
     }
 }
 
