@@ -29,4 +29,8 @@ struct Location: Codable, Equatable, Identifiable {
         longitude: -0.1278
     )
     #endif
+    
+    static func ==(lhs: Location, rhs: Location) -> Bool {
+        lhs.id == rhs.id
+    } 
 }
