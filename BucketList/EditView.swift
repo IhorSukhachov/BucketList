@@ -61,6 +61,9 @@ struct EditView: View {
                 }
                 
             }
+            .task {
+                await fetchNearbyPlaces()
+            }
         }
     }
     init(location: Location, onSave: @escaping (Location) -> Void) {
