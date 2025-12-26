@@ -26,13 +26,13 @@ struct ContentView: View {
             Map(initialPosition: startPosition) {
                 ForEach(locations) { location in
                     Annotation (location.name, coordinate: location.coordinate) {
-                        Image(systemName: "star.circle ")
+                        Image(systemName: "star.circle")
                             .resizable()
                             .foregroundStyle(.red)
                             .frame(width: 44, height: 44)
                             .background(.white)
                             .clipShape(.circle)
-                            .onLongPressGesture {
+                            .onTapGesture {
                                 selectedPlace = location
                             }
                     }
@@ -45,14 +45,14 @@ struct ContentView: View {
                         locations.append(newLocation)
                     }
                     
-                }
-                .sheet(item: $selectedPlace) { place in
+                }.sheet(item: $selectedPlace) { place in
                     EditView(location: place) {newLocation in
                         if let index = locations.firstIndex(of: place) {
                             locations[index] = newLocation
                         }
                     }
                 }
+                
         }
 
     }
