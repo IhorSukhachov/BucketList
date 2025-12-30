@@ -26,6 +26,15 @@ extension ContentView {
             }
         }
         
+        func save() {
+            do {
+                let data = try JSONEncoder().encode(locations)
+                try data.write(to: savePath, options: [.atomic, .completeFileProtection])
+            } catch {
+                print("Unable to save because of: \(error.localizedDescription)")
+            }
+        }
+        
         func addLocation(at point: CLLocationCoordinate2D) {
             let newLocation = Location(id: UUID(), name: "New Location", description: "", latitude: point.latitude, longitude: point.longitude)
             locations.append(newLocation)
