@@ -6,3 +6,12 @@
 //
 
 import Foundation
+import MapKit
+
+extension ContentView {
+    @Observable
+    class ViewModel {
+        
+    }
+}
+
