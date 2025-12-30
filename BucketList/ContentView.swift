@@ -53,7 +53,11 @@ struct ContentView: View {
             }
         }
         else {
-           //button
+            Button("Unlock places", action: viewModel.authencticate)
+                .padding()
+                .background(.blue)
+                .foregroundStyle(.white)
+                .clipShape(.capsule)
         }
 
 
