@@ -40,8 +40,7 @@ struct ContentView: View {
                 .mapStyle(.hybrid)
                 .onTapGesture { position in
                     if let coordinate = proxy.convert(position, from: .local) {
-                        let newLocation = Location(id: UUID(), name: "New Location", description: "", latitude: coordinate.latitude, longitude: coordinate.longitude)
-                        viewModel.locations.append(newLocation)
+                        viewModel.addLocation(at: coordinate)
                     }
                     
                 }.sheet(item: $viewModel.selectedPlace) { place in
