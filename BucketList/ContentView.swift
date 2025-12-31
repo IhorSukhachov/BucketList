@@ -20,6 +20,7 @@ struct ContentView: View {
     
     @State private var viewModel = ViewModel()
     @State private var mapStyle: MapStyle = .standard
+   
     
     var body: some View {
         if viewModel.isUnlocked {
@@ -72,6 +73,11 @@ struct ContentView: View {
                 .background(.blue)
                 .foregroundStyle(.white)
                 .clipShape(.capsule)
+                .alert("Authentification error", isPresented: $viewModel.showingAlert) {
+                    Button("OK", role: .cancel) {}
+                } message: {
+                    Text("Authorization is required")
+                }
         }
 
 
