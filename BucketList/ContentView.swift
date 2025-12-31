@@ -19,38 +19,52 @@ struct ContentView: View {
     )
     
     @State private var viewModel = ViewModel()
+    @State private var mapStyle: MapStyle = .standard
     
     var body: some View {
         if viewModel.isUnlocked {
-            MapReader { proxy in
-                Map(initialPosition: startPosition) {
-                    ForEach(viewModel.locations) { location in
-                        Annotation (location.name, coordinate: location.coordinate) {
-                            Image(systemName: "star.circle")
-                                .resizable()
-                                .foregroundStyle(.red)
-                                .frame(width: 44, height: 44)
-                                .background(.white)
-                                .clipShape(.circle)
-                                .onTapGesture {
-                                    viewModel.selectedPlace = location
-                                }
+            NavigationStack {
+                MapReader { proxy in
+                    Map(initialPosition: startPosition) {
+                        ForEach(viewModel.locations) { location in
+                            Annotation (location.name, coordinate: location.coordinate) {
+                                Image(systemName: "star.circle")
+                                    .resizable()
+                                    .foregroundStyle(.red)
+                                    .frame(width: 44, height: 44)
+                                    .background(.white)
+                                    .clipShape(.circle)
+                                    .onTapGesture {
+                                        viewModel.selectedPlace = location
+                                    }
+                            }
                         }
                     }
-                }
-                    .mapStyle(.hybrid)
-                    .onTapGesture { position in
-                        if let coordinate = proxy.convert(position, from: .local) {
-                            viewModel.addLocation(at: coordinate)
+                        .mapStyle(mapStyle)
+                        .onTapGesture { position in
+                            if let coordinate = proxy.convert(position, from: .local) {
+                                viewModel.addLocation(at: coordinate)
+                            }
+                            
+                        }.sheet(item: $viewModel.selectedPlace) { place in
+                            EditView(location: place) {
+                                viewModel.updateLocation(location: $0)
+                            }
                         }
                         
-                    }.sheet(item: $viewModel.selectedPlace) { place in
-                        EditView(location: place) {
-                            viewModel.updateLocation(location: $0)
-                        }
+                }.toolbar {
+                    Button("Standart map") {
+                        mapStyle = .standard
                     }
-                    
+                    Button("Satellite map") {
+                        mapStyle = .hybrid
+                    }
+
+                }
             }
+
+            
+
         }
         else {
             Button("Unlock places", action: viewModel.authencticate)
